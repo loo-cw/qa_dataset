@@ -26,6 +26,9 @@ if 'user_question' not in st.session_state:
 if 'rating' not in st.session_state:
   st.session_state.rating = 3
 
+if 'feedback_submitted' not in st.session_state:
+    st.session_state.feedback_submitted = False
+
 # Streamlit Interface
 st.title("Health Q&A")
 
@@ -71,11 +74,16 @@ if st.button("Get Answer"):
         # Rating slider for helpfulness
         st.session_state.rating = st.slider("Rate the helpfulness of the answer:", 1, 5, st.session_state.rating)
         if st.button("Submit Rating"):
+            st.session_state.feedback_submitted = True
             st.write(f"Thank you for your feedback! You rated the answer: {st.session_state.rating}/5")
-            # Here you could save the rating to a database or log it
+        
+        if st.session_state.feedback_submitted:
+            st.write(f"Thank you for your feedback! You rated the answer: {st.session_state.rating}/5")
+
     else:
         st.write("I apologize, but I don't have information on that topic yet. Could you please ask another question?")
 
 if st.button("Clear"):
   st.session_state.user_question = "" # Clear the input field
   st.session_state.rating = 3 # Reset rating
+  st.session_state.feedback_submitted = False # Reset feedback state
