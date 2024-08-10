@@ -44,4 +44,5 @@ if st.button("Get Answer"):
     st.write("I apologize, but I don't have information on that topic yet. Could you please ask another question?")
 
 if st.button("Clear"):
-  st.experimental_rerun()
+  st.session_state.user_question = "" # Clear the input field
+  st.experimental_rerun() # Rerun the script to update UI
