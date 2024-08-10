@@ -45,4 +45,3 @@ if st.button("Get Answer"):
 
 if st.button("Clear"):
   st.session_state.user_question = "" # Clear the input field
-  st.experimental_rerun() # Rerun the script to update UI
