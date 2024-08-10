@@ -26,9 +26,6 @@ if 'user_question' not in st.session_state:
 if 'rating' not in st.session_state:
   st.session_state.rating = 3
 
-if 'feedback_submitted' not in st.session_state:
-    st.session_state.feedback_submitted = False
-
 # Streamlit Interface
 st.title("Health Q&A")
 
@@ -43,9 +40,9 @@ if faq_query:
         st.sidebar.write(f"**Q:** {row['Question']}")
         st.sidebar.write(f"**A:** {row['Answer']}")
 else:
-    # Display a few common FAQs
+    # Display a FAQ
     st.sidebar.write("Here are some common questions:")
-    common_faqs = df.sample(5)  # Randomly select 5 questions for display
+    common_faqs = df.sample(1)  # Randomly select 1 question for display
     for idx, row in common_faqs.iterrows():
         st.sidebar.write(f"**Q:** {row['Question']}")
         st.sidebar.write(f"**A:** {row['Answer']}")
@@ -74,16 +71,10 @@ if st.button("Get Answer"):
         # Rating slider for helpfulness
         st.session_state.rating = st.slider("Rate the helpfulness of the answer:", 1, 5, st.session_state.rating)
         if st.button("Submit Rating"):
-            st.session_state.feedback_submitted = True
             st.write(f"Thank you for your feedback! You rated the answer: {st.session_state.rating}/5")
-        
-        if st.session_state.feedback_submitted:
-            st.write(f"Thank you for your feedback! You rated the answer: {st.session_state.rating}/5")
-
     else:
         st.write("I apologize, but I don't have information on that topic yet. Could you please ask another question?")
 
 if st.button("Clear"):
   st.session_state.user_question = "" # Clear the input field
   st.session_state.rating = 3 # Reset rating
-  st.session_state.feedback_submitted = False # Reset feedback state
