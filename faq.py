@@ -65,10 +65,16 @@ if st.button("Get Answer"):
     # Set a threshold for matching
     threshold = 0.75
     if best_score > threshold:
-      st.write(f"Answer: {df.iloc[best_match_idx]['Answer']}")
-      st.write(f"Similarity Score: {best_score}")
+        st.write(f"**Answer:** {df.iloc[best_match_idx]['Answer']}")
+        st.write(f"**Similarity Score:** {best_score:.2f}")
+            
+        # Rating slider for helpfulness
+        st.session_state.rating = st.slider("Rate the helpfulness of the answer:", 1, 5, st.session_state.rating)
+        if st.button("Submit Rating"):
+            st.write(f"Thank you for your feedback! You rated the answer: {st.session_state.rating}/5")
+            # Here you could save the rating to a database or log it
     else:
-      st.write("I apologize, but I don't have information on that topic yet. Could you please ask another question?")
+        st.write("I apologize, but I don't have information on that topic yet. Could you please ask another question?")
 
 if st.button("Clear"):
   st.session_state.user_question = "" # Clear the input field
